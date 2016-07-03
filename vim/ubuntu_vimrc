@@ -1,0 +1,42 @@
+" Enable Pathogen - https://github.com/tpope/vim-pathogen
+execute pathogen#infect()
+syntax on
+se nu
+filetype plugin indent on
+
+" Do not meddle with global variables
+set sessionoptions-=options
+
+" Set files to be ignored by VIM & Ctrl-P
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,
+set wildignore+=*/.git/*,*/.svn/*,*/.hg/*,*.o,*.o.d,
+
+" Enable NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
+" Enable VIM Airline - https://github.com/vim-airline/vim-airline
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+
+" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+
+" Custom shortcuts to move between windows
+" http://stackoverflow.com/questions/7070889/remap-ctrl-arrowkeys-to-switch-between-split-buffers
+nnoremap <silent> <c-s-up> <c-w>k
+nnoremap <silent> <c-s-right> <c-w>l
+nnoremap <silent> <c-s-down> <c-w>j
+nnoremap <silent> <c-s-left> <c-w>h
+
+" Easy switching between buffers (prints all buffers with F5)
+" http://vim.wikia.com/wiki/Easier_buffer_switching
+nnoremap <F5> :buffers<CR>:buffer<Space>
+" Use Shift-Left for previous buffer, Shift-Right for the next
+nnoremap <s-left> :bp<CR>
+nnoremap <s-right> :bn<CR>
+
+" Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
+set tags=tags;
+
