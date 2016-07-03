@@ -32,7 +32,7 @@ nnoremap <silent> <c-s-left> <c-w>h
 
 " Easy switching between buffers (prints all buffers with F5)
 " http://vim.wikia.com/wiki/Easier_buffer_switching
-nnoremap <F5> :buffers<CR>:buffer<Space>
+nnoremap <F6> :buffers<CR>:buffer<Space>
 " Use Shift-Left for previous buffer, Shift-Right for the next
 nnoremap <s-left> :bp<CR>
 nnoremap <s-right> :bn<CR>
