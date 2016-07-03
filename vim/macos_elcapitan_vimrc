@@ -67,3 +67,6 @@ map <C-n> :NERDTreeToggle<CR>
 " https://github.com/Valloric/YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1
 
+" Enable TagBar - https://github.com/majutsushi/tagbar
+nmap <F8> :TagbarToggle<CR>
+
