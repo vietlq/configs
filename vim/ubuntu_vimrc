@@ -8,8 +8,8 @@ filetype plugin indent on
 set sessionoptions-=options
 
 " Set files to be ignored by VIM & Ctrl-P
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,
-set wildignore+=*/.git/*,*/.svn/*,*/.hg/*,*.o,*.o.d,
+set wildignore+=*/tmp/*,*/.git/*,*/.svn/*,*/.hg/*
+set wildignore+=*.so,*.swp,*.zip,*.o,*.o.d
 
 " Enable NERDTree
 map <C-n> :NERDTreeToggle<CR>
@@ -38,7 +38,7 @@ nnoremap <s-left> :bp<CR>
 nnoremap <s-right> :bn<CR>
 
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
-set tags=tags;
+set tags=./tags;tags;$HOME
 
 " Enable TagBar - https://github.com/majutsushi/tagbar
 nmap <F8> :TagbarToggle<CR>
