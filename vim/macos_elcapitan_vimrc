@@ -1,0 +1,69 @@
+execute pathogen#infect()
+
+filetype plugin indent on
+
+" Turn on syntax highlighting
+syntax on
+
+" Turn on line numbers
+se nu
+
+" Unlimited undo history
+" http://askubuntu.com/questions/292/how-do-i-get-vim-to-keep-its-undo-history
+set hidden
+
+" To avoid global variables wherever possible
+set sessionoptions-=options
+
+" Set files to be ignored by VIM & Ctrl-P
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip,
+set wildignore+=*/.git/*,*/.svn/*,*/.hg/*,*.o,*.o.d,
+
+" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Enable VIM Airline - https://github.com/vim-airline/vim-airline
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+
+" Enable Solarized https://github.com/altercation/vim-colors-solarized
+set background=dark
+" xterm-256color requires this condition. xterm does not!
+let g:solarized_termcolors=256
+colorscheme solarized
+
+" Custom shortcuts to move between windows - works in GVim
+" http://stackoverflow.com/questions/7070889/remap-ctrl-arrowkeys-to-switch-between-split-buffers
+nnoremap <silent> <c-s-up> <c-w>k
+nnoremap <silent> <c-s-right> <c-w>l
+nnoremap <silent> <c-s-down> <c-w>j
+nnoremap <silent> <c-s-left> <c-w>h
+
+" Easy switching between buffers (prints all buffers with F5)
+" http://vim.wikia.com/wiki/Easier_buffer_switching
+nnoremap <F5> :buffers<CR>:buffer<Space>
+nnoremap <s-left> :bp<CR>
+nnoremap <s-right> :bn<CR>
+
+" Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
+set tags=tags;
+
+" Enable NERDTree - https://github.com/scrooloose/nerdtree
+map <C-n> :NERDTreeToggle<CR>
+" Open NERDTree tab by default if no file being passed in argv
+"autocmd StdinReadPre * let s:std_in=1
+"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" These are folder closed/open symbols. Change if you need other symbols
+"let g:NERDTreeDirArrowExpandable = '>'
+"let g:NERDTreeDirArrowCollapsible = 'V'
+
+" https://github.com/Valloric/YouCompleteMe
+let g:ycm_collect_identifiers_from_tags_files = 1
+
