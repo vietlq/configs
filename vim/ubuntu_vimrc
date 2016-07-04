@@ -50,5 +50,7 @@ nnoremap <s-right> :bn<CR>
 set tags=./tags;tags;$HOME
 
 " Enable TagBar - https://github.com/majutsushi/tagbar
+" If you ever need to specify path to ctags
+"let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
 nmap <F8> :TagbarToggle<CR>
 
