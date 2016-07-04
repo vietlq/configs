@@ -21,8 +21,8 @@ set hidden
 set sessionoptions-=options
 
 " Set files to be ignored by VIM & Ctrl-P
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip,
-set wildignore+=*/.git/*,*/.svn/*,*/.hg/*,*.o,*.o.d,
+set wildignore+=*/tmp/*,*/.git/*,*/.svn/*,*/.hg/*
+set wildignore+=*.so,*.swp,*.zip,*.o,*.o.d
 
 " Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
