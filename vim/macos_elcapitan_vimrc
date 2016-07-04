@@ -1,12 +1,17 @@
+" Enable Pathogen - https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
-
-filetype plugin indent on
 
 " Turn on syntax highlighting
 syntax on
 
 " Turn on line numbers
 se nu
+
+" Indent based on file type
+filetype plugin indent on
+
+" Best indentation - http://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 " Unlimited undo history
 " http://askubuntu.com/questions/292/how-do-i-get-vim-to-keep-its-undo-history

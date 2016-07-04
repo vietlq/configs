@@ -1,8 +1,17 @@
 " Enable Pathogen - https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
+
+" Turn on syntax highlighting
 syntax on
+
+" Turn on line numbers
 se nu
+
+" Indent based on file type
 filetype plugin indent on
+
+" Best indentation - http://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces
+set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
 
 " Do not meddle with global variables
 set sessionoptions-=options
