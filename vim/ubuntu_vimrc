@@ -22,6 +22,8 @@ set wildignore+=*.so,*.swp,*.zip,*.o,*.o.d
 
 " Enable NERDTree
 map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Enable VIM Airline - https://github.com/vim-airline/vim-airline
 set laststatus=2
