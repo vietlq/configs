@@ -11,7 +11,13 @@ se nu
 filetype plugin indent on
 
 " Best indentation - http://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces
-set tabstop=8 softtabstop=0 expandtab shiftwidth=4 smarttab
+set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab textwidth=120
+
+" Show line & column number
+set ruler
+
+" Make Backspace more powerful
+set backspace=indent,eol,start
 
 " Unlimited undo history
 " http://askubuntu.com/questions/292/how-do-i-get-vim-to-keep-its-undo-history
