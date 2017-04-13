@@ -30,25 +30,6 @@ set sessionoptions-=options
 set wildignore+=*/tmp/*,*/.git/*,*/.svn/*,*/.hg/*
 set wildignore+=*.so,*.swp,*.zip,*.o,*.o.d
 
-" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-nnoremap <leader>. :CtrlPTag<cr>
-
-" Enable VIM Airline - https://github.com/vim-airline/vim-airline
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2
-
-" Enable Solarized https://github.com/altercation/vim-colors-solarized
-set background=dark
-" xterm-256color requires this condition. xterm does not!
-let g:solarized_termcolors=256
-colorscheme solarized
-
 " Custom shortcuts to move between windows - works in GVim
 " http://stackoverflow.com/questions/7070889/remap-ctrl-arrowkeys-to-switch-between-split-buffers
 nnoremap <silent> <c-s-up> <c-w>k
@@ -64,6 +45,25 @@ nnoremap <s-right> :bn<CR>
 
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
 set tags=tags;
+
+" Enable Solarized https://github.com/altercation/vim-colors-solarized
+set background=dark
+" xterm-256color requires this condition. xterm does not!
+let g:solarized_termcolors=256
+colorscheme solarized
+
+" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Enable VIM Airline - https://github.com/vim-airline/vim-airline
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
 
 " Enable NERDTree - https://github.com/scrooloose/nerdtree
 map <C-n> :NERDTreeToggle<CR>
