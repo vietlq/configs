@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export EDITOR=vim
+
 export PATH=$PATH:/opt/usr/bin
 
 if [ "$color_prompt" = yes ]; then
@@ -17,4 +19,15 @@ xterm*|rxvt*)
 *)
     ;;
 esac
+
+alias ocaml="rlwrap ocaml"
+
+function unlock_eclipse
+{
+    locks=$(find $HOME/eclipse/workspaces -type f -name .lock | grep '/\.metadata/\.lock$' | perl -pe 's#\n# #')
+    if [ ! -z "$locks" ]; then
+        echo $locks
+        rm $locks
+    fi
+}
 
