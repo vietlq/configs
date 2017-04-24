@@ -62,3 +62,12 @@ let g:ctrlp_working_path_mode = 'ra'
 "let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
 nmap <F8> :TagbarToggle<CR>
 
+" Enable Solarized theme: https://github.com/altercation/vim-colors-solarized
+"if has('gui_running')
+"    set background=light
+"else
+"    set background=dark
+"endif
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized

@@ -46,12 +46,6 @@ nnoremap <s-right> :bn<CR>
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
 set tags=tags;
 
-" Enable Solarized https://github.com/altercation/vim-colors-solarized
-set background=dark
-" xterm-256color requires this condition. xterm does not!
-let g:solarized_termcolors=256
-colorscheme solarized
-
 " Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -83,3 +77,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 "let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
 nmap <F8> :TagbarToggle<CR>
 
+" Enable Solarized https://github.com/altercation/vim-colors-solarized
+set background=dark
+" xterm-256color requires this condition. xterm does not!
+let g:solarized_termcolors=256
+colorscheme solarized
