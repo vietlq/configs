@@ -74,7 +74,6 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
 nmap <F8> :TagbarToggle<CR>
 
-<<<<<<< HEAD
 " Must have for crontab, otherwise you will get the error:
 " crontab: temp file must be edited in place
 autocmd filetype crontab setlocal nobackup nowritebackup
@@ -143,10 +142,9 @@ set rtp+=/Users/vietlq/.opam/4.02.3+buckle-master/share/vim
 let g:cpp_class_scope_highlight = 1
 let g:cpp_member_variable_highlight = 1
 let g:cpp_experimental_template_highlight = 1
-=======
+
 " Enable Solarized https://github.com/altercation/vim-colors-solarized
 set background=dark
 " xterm-256color requires this condition. xterm does not!
 let g:solarized_termcolors=256
 colorscheme solarized
->>>>>>> 8460c533d3ec72245b7c8b6a984a4afcd538e4d6
