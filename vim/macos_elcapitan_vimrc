@@ -11,7 +11,7 @@ se nu
 filetype plugin indent on
 
 " Best indentation - http://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces
-set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
+set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab textwidth=120
 
 " Show line & column number
 set ruler
@@ -30,25 +30,6 @@ set sessionoptions-=options
 set wildignore+=*/tmp/*,*/.git/*,*/.svn/*,*/.hg/*
 set wildignore+=*.so,*.swp,*.zip,*.o,*.o.d
 
-" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
-let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-nnoremap <leader>. :CtrlPTag<cr>
-
-" Enable VIM Airline - https://github.com/vim-airline/vim-airline
-let g:airline#extensions#tabline#enabled = 1
-set laststatus=2
-
-" Enable Solarized https://github.com/altercation/vim-colors-solarized
-set background=dark
-" xterm-256color requires this condition. xterm does not!
-let g:solarized_termcolors=256
-colorscheme solarized
-
 " Custom shortcuts to move between windows - works in GVim
 " http://stackoverflow.com/questions/7070889/remap-ctrl-arrowkeys-to-switch-between-split-buffers
 nnoremap <silent> <c-s-up> <c-w>k
@@ -65,6 +46,19 @@ nnoremap <s-right> :bn<CR>
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
 set tags=tags;
 
+" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Enable VIM Airline - https://github.com/vim-airline/vim-airline
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+
 " Enable NERDTree - https://github.com/scrooloose/nerdtree
 map <C-n> :NERDTreeToggle<CR>
 autocmd StdinReadPre * let s:std_in=1
@@ -75,76 +69,16 @@ autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 "let g:NERDTreeDirArrowExpandable = '>'
 "let g:NERDTreeDirArrowCollapsible = 'V'
 
+" https://github.com/Valloric/YouCompleteMe
+let g:ycm_collect_identifiers_from_tags_files = 1
+
 " Enable TagBar - https://github.com/majutsushi/tagbar
 " If you ever need to specify path to ctags
 "let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
 nmap <F8> :TagbarToggle<CR>
 
-" Must have for crontab, otherwise you will get the error:
-" crontab: temp file must be edited in place
-autocmd filetype crontab setlocal nobackup nowritebackup
-
-" path to directory where library can be found
-let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
-" or path directly to the library file
-let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-let g:clang_snippets = 1
-let g:clang_snippets_engine='ultisnips'
-
-" SuperTab
-let g:SuperTabDefaultCompletionType='<C-X><C-U>'
-let g:SuperTabDefaultCompletionType='<C-X><C-O>'
-
-" UltiSnips
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-
-" https://github.com/vim-syntastic/syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
-
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
-
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
-
-" https://github.com/ocaml/merlin: $ opam config var share
-set rtp+=/Users/vietlq/.opam/4.02.3+buckle-master/share/vim
-
-" https://github.com/octol/vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_experimental_template_highlight = 1
+" Enable Solarized https://github.com/altercation/vim-colors-solarized
+set background=dark
+" xterm-256color requires this condition. xterm does not!
+let g:solarized_termcolors=256
+colorscheme solarized

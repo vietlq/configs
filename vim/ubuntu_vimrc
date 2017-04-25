@@ -26,20 +26,6 @@ set sessionoptions-=options
 set wildignore+=*/tmp/*,*/.git/*,*/.svn/*,*/.hg/*
 set wildignore+=*.so,*.swp,*.zip,*.o,*.o.d
 
-" Enable NERDTree
-map <C-n> :NERDTreeToggle<CR>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" Enable VIM Airline - https://github.com/vim-airline/vim-airline
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
-
-" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'ra'
-
 " Custom shortcuts to move between windows
 " http://stackoverflow.com/questions/7070889/remap-ctrl-arrowkeys-to-switch-between-split-buffers
 nnoremap <silent> <c-s-up> <c-w>k
@@ -57,8 +43,31 @@ nnoremap <s-right> :bn<CR>
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
 set tags=./tags;tags;$HOME
 
+" Enable NERDTree
+map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+" Enable VIM Airline - https://github.com/vim-airline/vim-airline
+set laststatus=2
+let g:airline#extensions#tabline#enabled = 1
+
+" Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+
 " Enable TagBar - https://github.com/majutsushi/tagbar
 " If you ever need to specify path to ctags
 "let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
 nmap <F8> :TagbarToggle<CR>
 
+" Enable Solarized theme: https://github.com/altercation/vim-colors-solarized
+"if has('gui_running')
+"    set background=light
+"else
+"    set background=dark
+"endif
+let g:solarized_termcolors=256
+set background=dark
+colorscheme solarized
