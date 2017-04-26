@@ -16,8 +16,18 @@ set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab textwidth=120
 " Show line & column number
 set ruler
 
+" http://stackoverflow.com/questions/2280030/how-to-stop-line-breaking-in-vim
+" this enables "visual" wrapping
+set wrap
+" this turns off physical line wrapping (ie: automatic insertion of newlines)
+set textwidth=0 wrapmargin=0
+
 " Make Backspace more powerful
 set backspace=indent,eol,start
+
+" Unlimited undo history
+" http://askubuntu.com/questions/292/how-do-i-get-vim-to-keep-its-undo-history
+set hidden
 
 " Do not meddle with global variables
 set sessionoptions-=options
@@ -41,7 +51,11 @@ nnoremap <s-left> :bp<CR>
 nnoremap <s-right> :bn<CR>
 
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
-set tags=./tags;tags;$HOME
+set tags+=tags
+set tags+=./tags
+set tags+=tags;
+" build tags of your own project with Ctrl-F12
+map <F12> :!ctags -R --sort=1 --c-kinds=+p --c++-kinds=+p --fields=+liasS --languages=+c,c++,python,-ocaml . --exclude=*.ml,*.mli .<CR>
 
 " Enable NERDTree
 map <C-n> :NERDTreeToggle<CR>
@@ -49,8 +63,8 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 
 " Enable VIM Airline - https://github.com/vim-airline/vim-airline
-set laststatus=2
 let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
 
 " Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
@@ -63,8 +77,23 @@ let g:ctrlp_working_path_mode = 'ra'
 nmap <F8> :TagbarToggle<CR>
 
 " Clang Complete: https://github.com/Rip-Rip/clang_complete
-let g:clang_library_path='/usr/local/lib'
-let g:clang_snippets = 1
+" https://github.com/Rip-Rip/clang_complete/issues/285
+let g:clang_use_library=1
+let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
+let g:clang_complete_auto=1 "auto complete after -> . and ::
+let g:clang_complete_copen=1 "open quick fix on error
+let g:clang_complete_hl_errors=1 " highlight errors and warnings
+let g:clang_periodic_quickfix=1 " update quickfix periodically
+let g:clang_trailing_placeholder=1 " add trailing placeholder after function
+let g:clang_close_preview=1 " close preview window after completion
+" On MacOS remember to run: xcode-select --install, otherwise you will get wchar.h not found
+" http://stackoverflow.com/questions/26185978/macos-wchar-h-file-not-found
+let g:clang_user_options='-std=c++11
+    \ -I/path/1
+	\ -I/path/2'
+" Remember to set export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+let g:clang_library_path='/usr/local/lib/libclang.so'
+let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
 
 " SuperTab
@@ -99,6 +128,13 @@ let g:cpp_experimental_template_highlight = 1
 " xterm-256color requires this condition. xterm does not!
 "let g:solarized_termcolors=256
 "colorscheme solarized
+
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+autocmd BufWritePre * %s/\s\+$//e
+" For *.pl files only:
+"autocmd BufWritePre *.pl %s/\s\+$//e
+" For selected file extensions:
+"autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
 
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
