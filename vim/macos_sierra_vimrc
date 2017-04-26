@@ -11,7 +11,7 @@ se nu
 filetype plugin indent on
 
 " Best indentation - http://stackoverflow.com/questions/1878974/redefine-tab-as-4-spaces
-set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab textwidth=120
+set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
 
 " Show line & column number
 set ruler
@@ -19,14 +19,18 @@ set ruler
 " Make Backspace more powerful
 set backspace=indent,eol,start
 
-" Do not meddle with global variables
+" Unlimited undo history
+" http://askubuntu.com/questions/292/how-do-i-get-vim-to-keep-its-undo-history
+set hidden
+
+" To avoid global variables wherever possible
 set sessionoptions-=options
 
 " Set files to be ignored by VIM & Ctrl-P
 set wildignore+=*/tmp/*,*/.git/*,*/.svn/*,*/.hg/*
 set wildignore+=*.so,*.swp,*.zip,*.o,*.o.d
 
-" Custom shortcuts to move between windows
+" Custom shortcuts to move between windows - works in GVim
 " http://stackoverflow.com/questions/7070889/remap-ctrl-arrowkeys-to-switch-between-split-buffers
 nnoremap <silent> <c-s-up> <c-w>k
 nnoremap <silent> <c-s-right> <c-w>l
@@ -36,34 +40,48 @@ nnoremap <silent> <c-s-left> <c-w>h
 " Easy switching between buffers (prints all buffers with F5)
 " http://vim.wikia.com/wiki/Easier_buffer_switching
 nnoremap <F6> :buffers<CR>:buffer<Space>
-" Use Shift-Left for previous buffer, Shift-Right for the next
 nnoremap <s-left> :bp<CR>
 nnoremap <s-right> :bn<CR>
 
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
-set tags=./tags;tags;$HOME
-
-" Enable NERDTree
-map <C-n> :NERDTreeToggle<CR>
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-
-" Enable VIM Airline - https://github.com/vim-airline/vim-airline
-set laststatus=2
-let g:airline#extensions#tabline#enabled = 1
+set tags=tags;
 
 " Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 let g:ctrlp_working_path_mode = 'ra'
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Enable VIM Airline - https://github.com/vim-airline/vim-airline
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+
+" Enable NERDTree - https://github.com/scrooloose/nerdtree
+map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" Open NERDTree tab by default if no file being passed in argv
+"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" These are folder closed/open symbols. Change if you need other symbols
+"let g:NERDTreeDirArrowExpandable = '>'
+"let g:NERDTreeDirArrowCollapsible = 'V'
 
 " Enable TagBar - https://github.com/majutsushi/tagbar
 " If you ever need to specify path to ctags
 "let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
 nmap <F8> :TagbarToggle<CR>
 
-" Clang Complete: https://github.com/Rip-Rip/clang_complete
-let g:clang_library_path='/usr/local/lib'
+" Must have for crontab, otherwise you will get the error:
+" crontab: temp file must be edited in place
+autocmd filetype crontab setlocal nobackup nowritebackup
+
+" path to directory where library can be found
+let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+" or path directly to the library file
+let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
 let g:clang_snippets = 1
 let g:clang_snippets_engine='ultisnips'
 
@@ -83,22 +101,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "let g:syntastic_auto_loc_list = 1
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
-
-" https://github.com/octol/vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-
-" Enable Solarized theme: https://github.com/altercation/vim-colors-solarized
-"if has('gui_running')
-"    set background=light
-"else
-"    set background=dark
-"endif
-"set background=dark
-" xterm-256color requires this condition. xterm does not!
-"let g:solarized_termcolors=256
-"colorscheme solarized
 
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
@@ -135,3 +137,14 @@ endfor
 
 " https://github.com/ocaml/merlin: $ opam config var share
 set rtp+=/Users/vietlq/.opam/4.02.3+buckle-master/share/vim
+
+" https://github.com/octol/vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
+" Enable Solarized https://github.com/altercation/vim-colors-solarized
+set background=dark
+" xterm-256color requires this condition. xterm does not!
+let g:solarized_termcolors=256
+colorscheme solarized
