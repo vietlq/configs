@@ -108,6 +108,12 @@ let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/
 let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
 
+" Complete options (disable preview scratch window, longest removed to aways show menu)
+" https://github.com/Valloric/YouCompleteMe/issues/234
+set completeopt=menu,menuone
+" Limit popup menu height
+set pumheight=20
+
 " SuperTab
 let g:SuperTabDefaultCompletionType='<C-X><C-U>'
 let g:SuperTabDefaultCompletionType='<C-X><C-O>'
