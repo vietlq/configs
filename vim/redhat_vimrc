@@ -1,0 +1,181 @@
+" Enable Pathogen
+execute pathogen#infect()
+execute pathogen#helptags()
+
+" Turn on syntax highlighting
+syntax on
+
+" Turn on search highlight
+set hlsearch
+
+" Turn on line numbers
+se nu
+
+" Set identation for each file type
+filetype plugin indent on
+set tabstop=4 softtabstop=4 autoindent expandtab shiftwidth=4 smarttab
+
+" Allow Backspace to delete chars, new lines & indent
+" http://vim.wikia.com/wiki/Backspace_and_delete_problems
+" Put this in your .bashrc/.profile/.bash_profile
+" stty erase '^?'
+set backspace=indent,eol,start
+
+" Unlimited undo history
+http://askubuntu.com/questions/292/how-do-i-get-vim-to-keep-its-undo-history
+set hidden
+
+" Turn on utf-8 for VIM display
+set encoding=utf-8
+
+" Ctags - search this folder, then upwards -
+http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
+set tags+=tags
+set tags+=./tags
+set tags+=tags;
+" build tags of your own project with Ctrl-F12
+map <C-F12> :!ctags -R --sort=1 --c-kinds=+p --c++-kinds=+p
+--fields=+liasS --languages=+c,c++,python,-ocaml .
+--exclude=*.ml,*.mli .<CR>
+
+" http://vim.wikia.com/wiki/Omni_completion
+set nocp " non vi compatible mode
+filetype plugin on " enable plugins
+
+" NeoComplete: https://github.com/Shougo/neocomplete.vim
+let g:neocomplete#enable_at_startup = 1
+
+if has("unix")
+    let s:uname = system("uname -s")
+    if s:uname =~ "Linux"
+        " SuperTab
+        let g:SuperTabDefaultCompletionType='<C-X><C-U>'
+        let g:SuperTabDefaultCompletionType='<C-X><C-O>'
+        let g:SuperTabDefaultCompletionType = "context"
+
+        " OmniCppComplete: http://vim.wikia.com/wiki/VimTip1608
+        let OmniCpp_NamespaceSearch = 1
+        let OmniCpp_GlobalScopeSearch = 1
+        let OmniCpp_ShowAccess = 1
+        let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+        let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+        let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+        let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+        let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+        " automatically open and close the popup menu / preview window
+        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+        set completeopt=menuone,menu,longest,preview
+
+        " Clang Complete: https://github.com/Rip-Rip/clang_complete
+        " https://github.com/Rip-Rip/clang_complete/issues/285
+        let g:clang_use_library=1
+        let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
+        let g:clang_complete_auto=1 "auto complete after -> . and ::
+        let g:clang_complete_copen=1 "open quick fix on error
+        let g:clang_complete_hl_errors=1 " highlight errors and warnings
+        let g:clang_periodic_quickfix=1 " update quickfix periodically
+        let g:clang_trailing_placeholder=1 " add trailing placeholder after function
+        let g:clang_close_preview=1 " close preview window after completion
+        let g:clang_user_options='-I/bb/build/SunOS-sparc-32/release/robolibs/local/opt/bb/include
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/l_cny/include
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/l_cnb/include
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/cnc/include
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/cnv/include
+                    \
+-I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/project/ovmlbas
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/fcd
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/cnt
+                    \ -I/bb/mbigd/mbig2726/fxdv_repo2/fixedincome/cntapi'
+        " Remember to set export LD_LIBRARY_PATH=/opt/bb/lib/llvm-3.8/lib64:$LD_LIBRARY_PATH
+        let g:clang_library_path='/opt/bb/lib/llvm-3.8/lib64/libclang.so'
+        let g:clang_library_path='/opt/bb/lib/llvm-3.8/lib64'
+        let g:clang_snippets=1
+        let g:clang_snippets_engine='ultisnips'
+    else
+        "set Vomnifunc=syntaxcomplete#Complete
+        let g:SuperTabDefaultCompletionType = "context"
+
+        " OmniCppComplete: http://vim.wikia.com/wiki/VimTip1608
+        let OmniCpp_NamespaceSearch = 1
+        let OmniCpp_GlobalScopeSearch = 1
+        let OmniCpp_ShowAccess = 1
+        let OmniCpp_ShowPrototypeInAbbr = 1 " show function parameters
+        let OmniCpp_MayCompleteDot = 1 " autocomplete after .
+        let OmniCpp_MayCompleteArrow = 1 " autocomplete after ->
+        let OmniCpp_MayCompleteScope = 1 " autocomplete after ::
+        let OmniCpp_DefaultNamespaces = ["std", "_GLIBCXX_STD"]
+        " automatically open and close the popup menu / preview window
+        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+        set completeopt=menuone,menu,longest,preview
+    endif
+endif
+
+" VIM & Ctrl-P to ignore files matching
+set wildignore+=*/tmp/*,*/.git/*,*/.svn/*,*/.hg/*,*/build/*,*/_xbd/*
+set wildignore+=*.so,*.swp,*.o,*.o.d,*.pyc,*.tmp,*.bak,*.exe
+
+" Enable NERDTree - https://github.com/scrooloose/nerdtree
+map <C-n> :NERDTreeToggle<CR>
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" These are folder closed/open symbols. Change if you need other symbols
+"let g:NERDTreeDirArrowExpandable = '+'
+"let g:NERDTreeDirArrowCollapsible = '|'
+
+" Enable vim-airline - https://github.com/vim-airline/vim-airline
+let g:airline#extensions#tabline#enabled = 1
+set laststatus=2
+
+" Enable CtrlP.Vim - https://github.com/ctrlpvim/ctrlp.vim
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'ra'
+"let g:ctrlp_root_markers = ['pom.xml', '.p4ignore']
+"let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+"let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d'  " Windows
+nnoremap <leader>. :CtrlPTag<cr>
+
+" Custom shortcuts to move between windows - works in GVim
+" http://stackoverflow.com/questions/7070889/remap-ctrl-arrowkeys-to-switch-between-split-buffers
+nnoremap <silent> <c-s-up> <c-w>k
+nnoremap <silent> <c-s-right> <c-w>l
+nnoremap <silent> <c-s-down> <c-w>j
+nnoremap <silent> <c-s-left> <c-w>h
+
+" Easy switching between buffers (prints all buffers with F5)
+" http://vim.wikia.com/wiki/Easier_buffer_switching
+nnoremap <F6> :buffers<CR>:buffer<Space>
+nnoremap <c-left> :bp<CR>
+nnoremap <c-right> :bn<CR>
+
+" Enable Solarized https://github.com/altercation/vim-colors-solarized
+"set background=dark
+"colorscheme solarized
+
+" Enable Molokai https://github.com/tomasr/molokai
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"colorscheme molokai
+"set background=light
+
+" Enable TagBar - https://github.com/majutsushi/tagbar
+let g:tagbar_ctags_bin="/opt/swt/bin/ctags"
+nmap <F8> :TagbarToggle<CR>
+
+" Highlight the string under the cursor and all its matches
+" http://stackoverflow.com/questions/1551231/highlight-variable-under-cursor-in-vim-like-in-netbeans
+autocmd CursorMoved * exe printf('match IncSearch /\V\<%s\>/',
+escape(expand('<cword>'), '/\'))
+
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+autocmd BufWritePre * %s/\s\+$//e
+" For *.pl files only:
+"autocmd BufWritePre *.pl %s/\s\+$//e
+" For selected file extensions:
+"autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
+
+" Enhanced C++ highlighting: https://github.com/octol/vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_experimental_template_highlight = 1

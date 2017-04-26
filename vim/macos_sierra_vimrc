@@ -78,16 +78,30 @@ nmap <F8> :TagbarToggle<CR>
 " crontab: temp file must be edited in place
 autocmd filetype crontab setlocal nobackup nowritebackup
 
-" path to directory where library can be found
-let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
-" or path directly to the library file
+" Clang Complete: https://github.com/Rip-Rip/clang_complete
+" https://github.com/Rip-Rip/clang_complete/issues/285
+let g:clang_use_library=1
+let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
+let g:clang_complete_auto=1 "auto complete after -> . and ::
+let g:clang_complete_copen=1 "open quick fix on error
+let g:clang_complete_hl_errors=1 " highlight errors and warnings
+let g:clang_periodic_quickfix=1 " update quickfix periodically
+let g:clang_trailing_placeholder=1 " add trailing placeholder after function
+let g:clang_close_preview=1 " close preview window after completion
+" On MacOS remember to run: xcode-select --install, otherwise you will get wchar.h not found
+" http://stackoverflow.com/questions/26185978/macos-wchar-h-file-not-found
+let g:clang_user_options='-std=c++11
+    \ -I/path/1
+	\ -I/path/2'
+" Remember to set export LD_LIBRARY_PATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib:$LD_LIBRARY_PATH
 let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-let g:clang_snippets = 1
+let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
 
 " SuperTab
 let g:SuperTabDefaultCompletionType='<C-X><C-U>'
 let g:SuperTabDefaultCompletionType='<C-X><C-O>'
+let g:SuperTabDefaultCompletionType='context'
 
 " UltiSnips
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
@@ -148,3 +162,10 @@ set background=dark
 " xterm-256color requires this condition. xterm does not!
 let g:solarized_termcolors=256
 colorscheme solarized
+
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+autocmd BufWritePre * %s/\s\+$//e
+" For *.pl files only:
+"autocmd BufWritePre *.pl %s/\s\+$//e
+" For selected file extensions:
+"autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
