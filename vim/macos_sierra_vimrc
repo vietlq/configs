@@ -16,11 +16,10 @@ set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
 " Show line & column number
 set ruler
 
+" http://stackoverflow.com/questions/2280030/how-to-stop-line-breaking-in-vim
 " this enables "visual" wrapping
 set wrap
-
 " this turns off physical line wrapping (ie: automatic insertion of newlines)
-" http://stackoverflow.com/questions/2280030/how-to-stop-line-breaking-in-vim
 set textwidth=0 wrapmargin=0
 
 " Make Backspace more powerful
@@ -127,6 +126,24 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 
+" https://github.com/octol/vim-cpp-enhanced-highlight
+let g:cpp_class_scope_highlight = 1
+let g:cpp_member_variable_highlight = 1
+let g:cpp_experimental_template_highlight = 1
+
+" Enable Solarized https://github.com/altercation/vim-colors-solarized
+set background=dark
+" xterm-256color requires this condition. xterm does not!
+let g:solarized_termcolors=256
+colorscheme solarized
+
+" http://vim.wikia.com/wiki/Remove_unwanted_spaces
+autocmd BufWritePre * %s/\s\+$//e
+" For *.pl files only:
+"autocmd BufWritePre *.pl %s/\s\+$//e
+" For selected file extensions:
+"autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
+
 " ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
 let s:opam_share_dir = system("opam config var share")
 let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
@@ -162,21 +179,3 @@ endfor
 
 " https://github.com/ocaml/merlin: $ opam config var share
 set rtp+=/Users/vietlq/.opam/4.02.3+buckle-master/share/vim
-
-" https://github.com/octol/vim-cpp-enhanced-highlight
-let g:cpp_class_scope_highlight = 1
-let g:cpp_member_variable_highlight = 1
-let g:cpp_experimental_template_highlight = 1
-
-" Enable Solarized https://github.com/altercation/vim-colors-solarized
-set background=dark
-" xterm-256color requires this condition. xterm does not!
-let g:solarized_termcolors=256
-colorscheme solarized
-
-" http://vim.wikia.com/wiki/Remove_unwanted_spaces
-autocmd BufWritePre * %s/\s\+$//e
-" For *.pl files only:
-"autocmd BufWritePre *.pl %s/\s\+$//e
-" For selected file extensions:
-"autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
