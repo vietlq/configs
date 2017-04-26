@@ -16,6 +16,13 @@ set tabstop=4 softtabstop=4 expandtab shiftwidth=4 smarttab
 " Show line & column number
 set ruler
 
+" this enables "visual" wrapping
+set wrap
+
+" this turns off physical line wrapping (ie: automatic insertion of newlines)
+" http://stackoverflow.com/questions/2280030/how-to-stop-line-breaking-in-vim
+set textwidth=0 wrapmargin=0
+
 " Make Backspace more powerful
 set backspace=indent,eol,start
 
