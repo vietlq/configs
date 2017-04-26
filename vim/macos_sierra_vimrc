@@ -51,7 +51,11 @@ nnoremap <s-left> :bp<CR>
 nnoremap <s-right> :bn<CR>
 
 " Ctags - search this folder, then upwards - http://vim.wikia.com/wiki/Single_tags_file_for_a_source_tree
-set tags=tags;
+set tags+=tags
+set tags+=./tags
+set tags+=tags;
+" build tags of your own project with Ctrl-F12
+map <F12> :!ctags -R --sort=1 --c-kinds=+p --c++-kinds=+p --fields=+liasS --languages=+c,c++,python,-ocaml . --exclude=*.ml,*.mli .<CR>
 
 " Enable Ctrl-P - https://github.com/ctrlpvim/ctrlp.vim
 let g:ctrlp_map = '<c-p>'

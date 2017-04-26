@@ -34,9 +34,7 @@ set tags+=tags
 set tags+=./tags
 set tags+=tags;
 " build tags of your own project with Ctrl-F12
-map <C-F12> :!ctags -R --sort=1 --c-kinds=+p --c++-kinds=+p
---fields=+liasS --languages=+c,c++,python,-ocaml .
---exclude=*.ml,*.mli .<CR>
+map <C-F12> :!ctags -R --sort=1 --c-kinds=+p --c++-kinds=+p --fields=+liasS --languages=+c,c++,python,-ocaml . --exclude=*.ml,*.mli .<CR>
 
 " http://vim.wikia.com/wiki/Omni_completion
 set nocp " non vi compatible mode
