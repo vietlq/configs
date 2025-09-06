@@ -78,16 +78,16 @@ local plugins = {
       local builtin = require('telescope.builtin')
       
       -- File finding
-      vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = "Find files" })
+      vim.keymap.set('n', '<leader>gf', builtin.find_files, { desc = "Find files" })
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Git files" })
-      vim.keymap.set('n', '<leader>pr', builtin.oldfiles, { desc = "Recent files" })
+      vim.keymap.set('n', '<leader>gr', builtin.oldfiles, { desc = "Recent files" })
       
       -- Text searching
-      vim.keymap.set('n', '<leader>ps', function()
+      vim.keymap.set('n', '<leader>gs', function()
         builtin.grep_string({ search = vim.fn.input("Grep > ") })
       end, { desc = "Grep string" })
-      vim.keymap.set('n', '<leader>pw', builtin.grep_string, { desc = "Grep word under cursor" })
-      vim.keymap.set('n', '<leader>pg', builtin.live_grep, { desc = "Live grep" })
+      vim.keymap.set('n', '<leader>gw', builtin.grep_string, { desc = "Grep word under cursor" })
+      vim.keymap.set('n', '<leader>gg', builtin.live_grep, { desc = "Live grep" })
       
       -- LSP integration
       vim.keymap.set('n', '<leader>lr', builtin.lsp_references, { desc = "LSP references" })
@@ -96,9 +96,9 @@ local plugins = {
       vim.keymap.set('n', '<leader>lw', builtin.lsp_workspace_symbols, { desc = "Workspace symbols" })
       
       -- Git integration
-      vim.keymap.set('n', '<leader>gc', builtin.git_commits, { desc = "Git commits" })
-      vim.keymap.set('n', '<leader>gb', builtin.git_branches, { desc = "Git branches" })
-      vim.keymap.set('n', '<leader>gs', builtin.git_status, { desc = "Git status" })
+      vim.keymap.set('n', '<leader>Gc', builtin.git_commits, { desc = "Git commits" })
+      vim.keymap.set('n', '<leader>Gb', builtin.git_branches, { desc = "Git branches" })
+      vim.keymap.set('n', '<leader>Gs', builtin.git_status, { desc = "Git status" })
       
       -- Neovim internals
       vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help tags" })
