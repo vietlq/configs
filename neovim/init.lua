@@ -80,38 +80,38 @@ local plugins = {
           }
         }
       }
-      
+
       local builtin = require('telescope.builtin')
-      
+
       -- File finding
       vim.keymap.set('n', '<leader>gf', builtin.find_files, { desc = "Find files" })
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Git files" })
       vim.keymap.set('n', '<leader>gr', builtin.oldfiles, { desc = "Recent files" })
-      
+
       -- Text searching
       vim.keymap.set('n', '<leader>gs', function()
         builtin.grep_string({ search = vim.fn.input("Grep > ") })
       end, { desc = "Grep string" })
       vim.keymap.set('n', '<leader>gw', builtin.grep_string, { desc = "Grep word under cursor" })
       vim.keymap.set('n', '<leader>gg', builtin.live_grep, { desc = "Live grep" })
-      
+
       -- LSP integration
       vim.keymap.set('n', '<leader>lr', builtin.lsp_references, { desc = "LSP references" })
       vim.keymap.set('n', '<leader>ld', builtin.lsp_definitions, { desc = "LSP definitions" })
       vim.keymap.set('n', '<leader>ls', builtin.lsp_document_symbols, { desc = "Document symbols" })
       vim.keymap.set('n', '<leader>lw', builtin.lsp_workspace_symbols, { desc = "Workspace symbols" })
-      
+
       -- Git integration
       vim.keymap.set('n', '<leader>Gc', builtin.git_commits, { desc = "Git commits" })
       vim.keymap.set('n', '<leader>Gb', builtin.git_branches, { desc = "Git branches" })
       vim.keymap.set('n', '<leader>Gs', builtin.git_status, { desc = "Git status" })
-      
+
       -- Neovim internals
       vim.keymap.set('n', '<leader>vh', builtin.help_tags, { desc = "Help tags" })
       vim.keymap.set('n', '<leader>vk', builtin.keymaps, { desc = "Keymaps" })
       vim.keymap.set('n', '<leader>vc', builtin.commands, { desc = "Commands" })
       vim.keymap.set('n', '<leader>vr', builtin.registers, { desc = "Registers" })
-      
+
       -- Buffers and tabs
       vim.keymap.set('n', '<leader>bb', builtin.buffers, { desc = "Buffers" })
       vim.keymap.set('n', '<leader>bt', builtin.current_buffer_fuzzy_find, { desc = "Buffer fuzzy find" })
@@ -192,7 +192,7 @@ local plugins = {
         },
         handlers = {
           lsp_zero.default_setup,
-          
+
           -- Rust analyzer with cargo check
           rust_analyzer = function()
             require('lspconfig').rust_analyzer.setup({
@@ -415,7 +415,7 @@ local plugins = {
   {
     'linux-cultist/venv-selector.nvim',
     dependencies = {
-      'neovim/nvim-lspconfig', 
+      'neovim/nvim-lspconfig',
       'nvim-telescope/telescope.nvim',
     },
     config = function()
@@ -446,18 +446,18 @@ local function set_python_path()
     local cwd = vim.fn.getcwd()
     local possible_venvs = {
       cwd .. "/venv/bin/python",
-      cwd .. "/.venv/bin/python", 
+      cwd .. "/.venv/bin/python",
       cwd .. "/env/bin/python",
       cwd .. "/.env/bin/python",
     }
-    
+
     for _, python_path in ipairs(possible_venvs) do
       if vim.fn.executable(python_path) == 1 then
         vim.g.python3_host_prog = python_path
         return python_path
       end
     end
-    
+
     vim.g.python3_host_prog = vim.fn.exepath("python3")
     return vim.fn.exepath("python3")
   end
@@ -502,6 +502,9 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 -- Window splits
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Vertical split" })
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
+
+-- Edit commands
+vim.keymap.set("n", "<leader>ects", ":%s/\\s\\+$//e<CR>", { desc = "Clear trailing spaces" })
 
 -- File type specific settings
 vim.api.nvim_create_autocmd("FileType", {
