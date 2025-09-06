@@ -514,6 +514,7 @@ vim.keymap.set("v", "<leader>sor", ":sort!<CR>", { desc = "Sort selected lines (
 vim.keymap.set("v", "<leader>son", ":sort n<CR>", { desc = "Sort selected lines (numeric)" })
 vim.keymap.set("v", "<leader>sou", ":sort u<CR>", { desc = "Sort selected lines (unique)" })
 vim.keymap.set("v", "<leader>soi", ":sort i<CR>", { desc = "Sort selected lines (case-insensitive)" })
+vim.keymap.set("v", "<leader>sonr", ":sort! n<CR>", { desc = "Sort selected lines (numeric reverse)" })
 
 -- File type specific settings
 vim.api.nvim_create_autocmd("FileType", {
