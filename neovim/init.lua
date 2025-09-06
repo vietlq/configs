@@ -21,6 +21,8 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
+vim.opt.fillchars = { horiz = '─', horizup = '┴', horizdown = '┬', vert = '│', vertleft = '┤', vertright = '├', verthoriz = '┼' }
+vim.opt.laststatus = 3  -- Global statusline to better show horizontal splits
 
 -- Leader key
 vim.g.mapleader = " "
