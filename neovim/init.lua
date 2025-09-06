@@ -494,6 +494,10 @@ vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 
+-- Window splits
+vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Vertical split" })
+vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
+
 -- File type specific settings
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"rust"},
