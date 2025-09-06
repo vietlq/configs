@@ -9,24 +9,32 @@ A comprehensive Neovim setup optimized for Rust, Python, and data file developme
 - **Git Integration**: Built-in git status, blame, and diff highlighting
 - **Terminal Integration**: Floating terminal accessible within Neovim
 - **Smart Editing**: Auto-completion, snippets, commenting, and auto-pairing
-- **Beautiful UI**: TokyoNight theme with custom orange split borders
+- **Beautiful UI**: TokyoNight theme with custom orange split borders and cursor line highlighting
 
 ## Installation
 
 1. Ensure you have Neovim 0.11+ installed
-2. Backup your existing Neovim configuration
-3. Copy `init.lua` to `~/.config/nvim/init.lua`
-4. Start Neovim - plugins will install automatically via lazy.nvim
+2. Install a Nerd Font for proper icon display:
+   ```bash
+   brew install font-jetbrains-mono-nerd-font
+   ```
+3. Configure your terminal to use the Nerd Font
+4. Backup your existing Neovim configuration
+5. Copy `init.lua` to `~/.config/nvim/init.lua`
+6. Start Neovim - plugins will install automatically via lazy.nvim
 
 ## Key Mappings
 
 ### General
 - `<Space>` - Leader key
 - `<leader>pv` - Toggle file explorer
-- `<leader>sv` - Vertical split
-- `<leader>sh` - Horizontal split
-- `<leader>ects` - Clear trailing spaces
 - `Ctrl+\` - Toggle floating terminal
+
+### Window Management
+- `<leader>sv` - Vertical split (same file)
+- `<leader>sh` - Horizontal split (same file)
+- `<leader>snv` - New vertical split (blank buffer)
+- `<leader>snh` - New horizontal split (blank buffer)
 
 ### File Navigation (Telescope)
 - `<leader>gf` - Find files
@@ -34,7 +42,9 @@ A comprehensive Neovim setup optimized for Rust, Python, and data file developme
 - `<leader>gr` - Recent files
 - `<leader>gg` - Live grep
 - `<leader>gs` - Grep string
+- `<leader>gw` - Grep word under cursor
 - `<leader>bb` - Switch buffers
+- `<leader>bt` - Buffer fuzzy find
 
 ### LSP
 - `gd` - Go to definition
@@ -42,20 +52,47 @@ A comprehensive Neovim setup optimized for Rust, Python, and data file developme
 - `<leader>vca` - Code actions
 - `<leader>vrn` - Rename symbol
 - `<leader>vrr` - Find references
+- `<leader>lr` - LSP references
+- `<leader>ld` - LSP definitions
+- `<leader>ls` - Document symbols
+- `<leader>lw` - Workspace symbols
 - `[d` / `]d` - Navigate diagnostics
+- `<leader>vd` - Open diagnostic float
+
+### Git Integration
+- `<leader>Gc` - Git commits
+- `<leader>Gb` - Git branches
+- `<leader>Gs` - Git status
 
 ### Editing
 - `gcc` - Toggle line comment
 - `gc` (visual) - Toggle comment on selection
+- `<leader>ects` - Clear trailing spaces
+- `<leader>f` - Format code (LSP)
+
+### Sorting (Visual Mode)
+- `<leader>so` - Sort selected lines
+- `<leader>sor` - Sort selected lines (reverse)
+- `<leader>son` - Sort selected lines (numeric)
+- `<leader>sonr` - Sort selected lines (numeric reverse)
+- `<leader>sou` - Sort selected lines (unique)
+- `<leader>soi` - Sort selected lines (case-insensitive)
 
 ### Python Development
 - `<leader>vs` - Select virtual environment
 - `<leader>vc` - Select cached virtual environment
 
+### Neovim Internals
+- `<leader>vh` - Help tags
+- `<leader>vk` - Keymaps
+- `<leader>vc` - Commands
+- `<leader>vr` - Registers
+
 ## Plugins
 
 | Plugin Name | Purpose | Key Features |
 |-------------|---------|--------------|
+| **akinsho/toggleterm.nvim** | Terminal integration | Floating terminal with `Ctrl+\`, better in-editor terminal |
 | **b0o/schemastore.nvim** | JSON schema support | Provides JSON schemas for validation and autocompletion |
 | **chrisbra/csv.vim** | CSV file handling | Better CSV editing with column alignment and navigation |
 | **folke/tokyonight.nvim** | Colorscheme | Dark theme with customized orange split borders |
@@ -78,7 +115,6 @@ A comprehensive Neovim setup optimized for Rust, Python, and data file developme
 | **rafamadriz/friendly-snippets** | Snippet collection | Pre-built code snippets for various languages |
 | **rust-lang/rust.vim** | Rust support | Rust-specific features, auto-formatting with rustfmt |
 | **saadparwaiz1/cmp_luasnip** | Snippet completion | LuaSnip integration with nvim-cmp |
-| **akinsho/toggleterm.nvim** | Terminal integration | Floating terminal with `Ctrl+\`, better in-editor terminal |
 | **Vimjas/vim-python-pep8-indent** | Python indentation | PEP8-compliant Python indentation |
 | **VonHeikemen/lsp-zero.nvim** | LSP setup helper | Simplified LSP configuration with sensible defaults |
 | **williamboman/mason-lspconfig.nvim** | LSP server bridge | Connects Mason with nvim-lspconfig |
@@ -117,6 +153,8 @@ A comprehensive Neovim setup optimized for Rust, Python, and data file developme
 - TokyoNight colorscheme with custom highlights
 - Line numbers with relative numbering
 - Color column at 80 characters
+- Global statusline for better split visibility
+- Unicode box-drawing characters for split borders
 
 ### Editor Behavior
 - 4-space indentation for Rust and Python
@@ -124,6 +162,7 @@ A comprehensive Neovim setup optimized for Rust, Python, and data file developme
 - Smart indentation and auto-formatting
 - Persistent undo history
 - No swap files for cleaner workspace
+- 300ms timeout for key combinations
 
 ### Performance
 - Fast startup with lazy.nvim plugin manager
@@ -142,6 +181,20 @@ The configuration automatically detects Python virtual environments in these loc
 
 LSP servers are automatically restarted when switching between projects with different virtual environments.
 
+## Font Requirements
+
+This configuration uses Nerd Fonts for proper icon display. Install one of these fonts:
+
+```bash
+# Recommended fonts
+brew install font-jetbrains-mono-nerd-font
+brew install font-fira-code-nerd-font
+brew install font-hack-nerd-font
+brew install font-source-code-pro-nerd-font
+```
+
+After installation, configure your terminal application to use the Nerd Font.
+
 ## Customization
 
 The configuration is modular and easy to customize:
@@ -149,6 +202,7 @@ The configuration is modular and easy to customize:
 - Keybindings are grouped by functionality
 - Language-specific settings use autocmds
 - Color schemes and highlights can be easily modified
+- Timeout settings can be adjusted for key combinations
 
 ## Requirements
 
@@ -157,6 +211,7 @@ The configuration is modular and easy to customize:
 - Node.js (for some LSP servers)
 - Python 3.8+ (for Python development)
 - Rust toolchain (for Rust development)
+- Nerd Font installed and configured in terminal
 
 ## License
 
