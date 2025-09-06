@@ -93,18 +93,18 @@ autocmd filetype crontab setlocal nobackup nowritebackup
 let g:clang_use_library=1
 let g:clang_auto_select=1 "select first entry in popup menu but don't insert in code
 let g:clang_complete_auto=1 "auto complete after -> . and ::
-let g:clang_complete_copen=1 "open quick fix on error
-let g:clang_complete_hl_errors=1 " highlight errors and warnings
+let g:clang_complete_copen=0 "open quick fix on error
+let g:clang_complete_hl_errors=0 " highlight errors and warnings
 let g:clang_periodic_quickfix=1 " update quickfix periodically
 let g:clang_trailing_placeholder=1 " add trailing placeholder after function
 let g:clang_close_preview=1 " close preview window after completion
 " On MacOS remember to run: xcode-select --install, otherwise you will get wchar.h not found
 " http://stackoverflow.com/questions/26185978/macos-wchar-h-file-not-found
-let g:clang_user_options='-std=c++11
+let g:clang_user_options='-std=c++17 -Wall -Werror -Wextra -pedantic
     \ -I/path/1
 	\ -I/path/2'
 " Remember to set export LD_LIBRARY_PATH=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib:$LD_LIBRARY_PATH
-let g:clang_library_path='/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+let g:clang_library_path='/Library/Developer/CommandLineTools/usr/lib/libclang.dylib'
 let g:clang_snippets=1
 let g:clang_snippets_engine='ultisnips'
 
@@ -150,38 +150,11 @@ autocmd BufWritePre * %s/\s\+$//e
 " For selected file extensions:
 "autocmd FileType c,cpp,java,php autocmd BufWritePre <buffer> %s/\s\+$//e
 
-" ## added by OPAM user-setup for vim / base ## 93ee63e278bdfc07d1139a748ed3fff2 ## you can edit, but keep this line
-let s:opam_share_dir = system("opam config var share")
-let s:opam_share_dir = substitute(s:opam_share_dir, '[\r\n]*$', '', '')
+" https://github.com/ElmCast/elm-vim
+let g:ale_emit_conflict_warnings = 0
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:elm_syntastic_show_warnings = 1
 
-let s:opam_configuration = {}
-
-function! OpamConfOcpIndent()
-  execute "set rtp^=" . s:opam_share_dir . "/ocp-indent/vim"
-endfunction
-let s:opam_configuration['ocp-indent'] = function('OpamConfOcpIndent')
-
-function! OpamConfOcpIndex()
-  execute "set rtp+=" . s:opam_share_dir . "/ocp-index/vim"
-endfunction
-let s:opam_configuration['ocp-index'] = function('OpamConfOcpIndex')
-
-function! OpamConfMerlin()
-  let l:dir = s:opam_share_dir . "/merlin/vim"
-  execute "set rtp+=" . l:dir
-endfunction
-let s:opam_configuration['merlin'] = function('OpamConfMerlin')
-
-let s:opam_packages = ["ocp-indent", "ocp-index", "merlin"]
-let s:opam_check_cmdline = ["opam list --installed --short --safe --color=never"] + s:opam_packages
-let s:opam_available_tools = split(system(join(s:opam_check_cmdline)))
-for tool in s:opam_packages
-  " Respect package order (merlin should be after ocp-index)
-  if count(s:opam_available_tools, tool) > 0
-    call s:opam_configuration[tool]()
-  endif
-endfor
-" ## end of OPAM user-setup addition for vim / base ## keep this line
-
-" https://github.com/ocaml/merlin: $ opam config var share
-set rtp+=/Users/vietlq/.opam/4.02.3+buckle-master/share/vim
+" Rust auto-format - https://github.com/rust-lang/rust.vim
+let g:rustfmt_autosave = 1
