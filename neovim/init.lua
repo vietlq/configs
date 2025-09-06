@@ -502,6 +502,8 @@ vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
 -- Window splits
 vim.keymap.set("n", "<leader>sv", ":vsplit<CR>", { desc = "Vertical split" })
 vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
+vim.keymap.set("n", "<leader>snv", ":vnew<CR>", { desc = "Vertical split with new buffer" })
+vim.keymap.set("n", "<leader>snh", ":new<CR>", { desc = "Horizontal split with new buffer" })
 
 -- Edit commands
 vim.keymap.set("n", "<leader>ects", ":%s/\\s\\+$//e<CR>", { desc = "Clear trailing spaces" })
