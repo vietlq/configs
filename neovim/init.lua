@@ -48,6 +48,9 @@ local plugins = {
     priority = 1000,
     config = function()
       vim.cmd([[colorscheme tokyonight]])
+      -- Customize split borders to orange
+      vim.api.nvim_set_hl(0, "WinSeparator", { fg = "#ff9500" })
+      vim.api.nvim_set_hl(0, "VertSplit", { fg = "#ff9500" })
     end,
   },
 
