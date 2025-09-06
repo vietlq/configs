@@ -506,6 +506,13 @@ vim.keymap.set("n", "<leader>sh", ":split<CR>", { desc = "Horizontal split" })
 -- Edit commands
 vim.keymap.set("n", "<leader>ects", ":%s/\\s\\+$//e<CR>", { desc = "Clear trailing spaces" })
 
+-- Sort commands
+vim.keymap.set("v", "<leader>so", ":sort<CR>", { desc = "Sort selected lines" })
+vim.keymap.set("v", "<leader>sor", ":sort!<CR>", { desc = "Sort selected lines (reverse)" })
+vim.keymap.set("v", "<leader>son", ":sort n<CR>", { desc = "Sort selected lines (numeric)" })
+vim.keymap.set("v", "<leader>sou", ":sort u<CR>", { desc = "Sort selected lines (unique)" })
+vim.keymap.set("v", "<leader>soi", ":sort i<CR>", { desc = "Sort selected lines (case-insensitive)" })
+
 -- File type specific settings
 vim.api.nvim_create_autocmd("FileType", {
   pattern = {"rust"},
