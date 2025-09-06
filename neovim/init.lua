@@ -341,6 +341,14 @@ local plugins = {
     "lewis6991/gitsigns.nvim",
     config = function()
       require('gitsigns').setup({
+        preview_config = {
+          -- Options passed to nvim_open_win
+          border = 'rounded',   -- 'single', 'double', 'rounded', 'solid', 'shadow'
+          style = 'minimal',
+          relative = 'cursor',
+          row = 0,
+          col = 1
+        },
         on_attach = function(bufnr)
           local gs = package.loaded.gitsigns
 
