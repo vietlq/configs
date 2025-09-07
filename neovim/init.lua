@@ -217,10 +217,45 @@ local plugins = {
                 }
               },
               on_init = function(client)
-                -- Use the virtual environment Python if available
-                local venv = os.getenv("VIRTUAL_ENV")
-                if venv then
-                  client.config.settings.python.pythonPath = venv .. "/bin/python"
+                -- Function to find virtual environment
+                local function find_venv()
+                  -- Check VIRTUAL_ENV first (your existing logic)
+                  local venv = os.getenv("VIRTUAL_ENV")
+                  if venv then
+                    return venv .. "/bin/python"
+                  end
+                  
+                  -- Look for .venv in current directory
+                  local cwd = vim.fn.getcwd()
+                  local venv_path = cwd .. "/.venv/bin/python"
+                  if vim.fn.executable(venv_path) == 1 then
+                    return venv_path
+                  end
+                  
+                  -- Look for .venv in project root (if different from cwd)
+                  local root_dir = client.config.root_dir or cwd
+                  local root_venv_path = root_dir .. "/.venv/bin/python"
+                  if vim.fn.executable(root_venv_path) == 1 then
+                    return root_venv_path
+                  end
+                  
+                  -- Check for .python-version file (uv pin creates this)
+                  local python_version_file = cwd .. "/.python-version"
+                  if vim.fn.filereadable(python_version_file) == 1 then
+                    -- Try to find corresponding venv
+                    local version_venv = cwd .. "/.venv/bin/python"
+                    if vim.fn.executable(version_venv) == 1 then
+                      return version_venv
+                    end
+                  end
+                  
+                  return nil
+                end
+                
+                local python_path = find_venv()
+                if python_path then
+                  client.config.settings.python.pythonPath = python_path
+                  print("Using Python: " .. python_path)
                 end
               end,
             })
