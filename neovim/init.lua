@@ -286,6 +286,21 @@ local plugins = {
     end
   },
 
+  -- LSP Lines for better diagnostic display
+  {
+    "lsp_lines.nvim",
+    url = "https://git.sr.ht/~whynothugo/lsp_lines.nvim",
+    lazy = false,  -- Load immediately
+    priority = 999, -- Load early but after LSP
+    config = function()
+      require("lsp_lines").setup()
+      -- Disable virtual_text since it conflicts with lsp_lines
+      vim.diagnostic.config({
+        virtual_text = false,
+      })
+    end,
+  },
+
   -- JSON schema support
   {
     "b0o/schemastore.nvim",
@@ -556,6 +571,22 @@ vim.keymap.set("n", "<leader>snh", ":new<CR>", { desc = "New horizontal split" }
 
 -- Edit commands
 vim.keymap.set("n", "<leader>ects", ":%s/\\s\\+$//e<CR>", { desc = "Clear trailing spaces" })
+
+-- LSP diagnostics toggle
+vim.keymap.set("n", "<leader>ll", function()
+  local ok, lsp_lines = pcall(require, "lsp_lines")
+  if not ok then
+    vim.notify("lsp_lines plugin not loaded", vim.log.levels.WARN)
+    return
+  end
+
+  lsp_lines.toggle()
+  -- Toggle virtual_text as well
+  local config = vim.diagnostic.config()
+  vim.diagnostic.config({
+    virtual_text = not config.virtual_text,
+  })
+end, { desc = "Toggle LSP lines" })
 
 -- Sort commands
 vim.keymap.set("v", "<leader>so", ":sort<CR>", { desc = "Sort selected lines" })
