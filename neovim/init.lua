@@ -23,7 +23,6 @@ vim.opt.updatetime = 50
 vim.opt.colorcolumn = "80"
 vim.opt.fillchars = { horiz = '─', horizup = '┴', horizdown = '┬', vert = '│', vertleft = '┤', vertright = '├', verthoriz = '┼' }
 vim.opt.laststatus = 3  -- Global statusline to better show horizontal splits
-vim.opt.winborder = 'rounded'  -- 'single', 'double', 'rounded', 'solid', 'shadow'
 
 -- Leader key
 vim.g.mapleader = " "
@@ -295,9 +294,10 @@ local plugins = {
     priority = 999, -- Load early but after LSP
     config = function()
       require("lsp_lines").setup()
-      -- Disable virtual_text since it conflicts with lsp_lines
+      -- Explicitly disable virtual_text to avoid duplication
       vim.diagnostic.config({
         virtual_text = false,
+        virtual_lines = true,
       })
     end,
   },
@@ -581,13 +581,25 @@ vim.keymap.set("n", "<leader>ll", function()
     return
   end
 
-  lsp_lines.toggle()
-  -- Toggle virtual_text as well
   local config = vim.diagnostic.config()
-  vim.diagnostic.config({
-    virtual_text = not config.virtual_text,
-  })
-end, { desc = "Toggle LSP lines" })
+
+  -- Cycle through states: off → virtual_lines only → off
+  if not config.virtual_text and not config.virtual_lines then
+    -- State 1: Turn on virtual_lines only
+    vim.diagnostic.config({
+      virtual_text = false,
+      virtual_lines = true,
+    })
+    vim.notify("LSP: virtual lines ON", vim.log.levels.INFO)
+  else
+    -- State 2: Turn everything off
+    vim.diagnostic.config({
+      virtual_text = false,
+      virtual_lines = false,
+    })
+    vim.notify("LSP: diagnostics OFF", vim.log.levels.INFO)
+  end
+end, { desc = "Toggle LSP diagnostics" })
 
 -- Sort commands
 vim.keymap.set("v", "<leader>so", ":sort<CR>", { desc = "Sort selected lines" })
