@@ -20,6 +20,10 @@ A comprehensive Neovim setup optimized for Rust, Python, and data file developme
    ```bash
    brew install font-jetbrains-mono-nerd-font
    ```
+
+   You can download and install from here:
+   https://www.nerdfonts.com/font-downloads
+
 3. Configure your terminal to use the Nerd Font
 4. Backup your existing Neovim configuration
 5. Copy `init.lua` to `~/.config/nvim/init.lua`
@@ -221,6 +225,9 @@ brew install font-fira-code-nerd-font
 brew install font-hack-nerd-font
 brew install font-source-code-pro-nerd-font
 ```
+
+You can download and install from here:
+https://www.nerdfonts.com/font-downloads
 
 After installation, configure your terminal application to use the Nerd Font.
 
