@@ -84,16 +84,16 @@ local plugins = {
       local builtin = require('telescope.builtin')
 
       -- File finding
-      vim.keymap.set('n', '<leader>gf', builtin.find_files, { desc = "Find files" })
+      vim.keymap.set('n', '<leader>ff', builtin.find_files, { desc = "Find files" })
       vim.keymap.set('n', '<C-p>', builtin.git_files, { desc = "Git files" })
-      vim.keymap.set('n', '<leader>gr', builtin.oldfiles, { desc = "Recent files" })
+      vim.keymap.set('n', '<leader>fr', builtin.oldfiles, { desc = "Recent files" })
 
       -- Text searching
-      vim.keymap.set('n', '<leader>gs', function()
+      vim.keymap.set('n', '<leader>fs', function()
         builtin.grep_string({ search = vim.fn.input("Grep > ") })
       end, { desc = "Grep string" })
-      vim.keymap.set('n', '<leader>gw', builtin.grep_string, { desc = "Grep word under cursor" })
-      vim.keymap.set('n', '<leader>gg', builtin.live_grep, { desc = "Live grep" })
+      vim.keymap.set('n', '<leader>fw', builtin.grep_string, { desc = "Grep word under cursor" })
+      vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = "Live grep" })
 
       -- LSP integration
       vim.keymap.set('n', '<leader>lr', builtin.lsp_references, { desc = "LSP references" })
@@ -479,6 +479,7 @@ local plugins = {
   -- Virtual environment selector
   {
     'linux-cultist/venv-selector.nvim',
+    branch = 'main',  -- Explicitly specify main branch
     dependencies = {
       'neovim/nvim-lspconfig',
       'nvim-telescope/telescope.nvim',
