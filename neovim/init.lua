@@ -294,10 +294,10 @@ local plugins = {
     priority = 999, -- Load early but after LSP
     config = function()
       require("lsp_lines").setup()
-      -- Explicitly disable virtual_text to avoid duplication
+      -- Start with virtual lines OFF by default
       vim.diagnostic.config({
         virtual_text = false,
-        virtual_lines = true,
+        virtual_lines = false,
       })
     end,
   },
