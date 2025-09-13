@@ -479,7 +479,6 @@ local plugins = {
   -- Virtual environment selector
   {
     'linux-cultist/venv-selector.nvim',
-    branch = 'main',  -- Explicitly specify main branch
     dependencies = {
       'neovim/nvim-lspconfig',
       'nvim-telescope/telescope.nvim',
@@ -559,8 +558,10 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>pp", [["_dP]])  -- Changed from <leader>p to <leader>pp
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
-vim.keymap.set("n", "<leader>Y", [["+Y]])
+vim.keymap.set({"n", "v"}, "<leader>y", [["+y]], { desc = "Copy to clipboard" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Copy line to clipboard" })
+vim.keymap.set({"n", "v"}, "<leader>p", [["+p]], { desc = "Paste from clipboard" })
+vim.keymap.set({"n", "v"}, "<leader>P", [["+P]], { desc = "Paste before from clipboard" })
 vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
