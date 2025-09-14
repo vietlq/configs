@@ -629,6 +629,15 @@ vim.keymap.set("n", "<leader>lr", function()
   vim.notify("LSP servers restarted", vim.log.levels.INFO)
 end, { desc = "Restart LSP servers" })
 
+-- Jump to next/previous error (not warning)
+vim.keymap.set("n", "]e", function()
+  vim.diagnostic.goto_next({severity = vim.diagnostic.severity.ERROR})
+end, { desc = "Next error" })
+
+vim.keymap.set("n", "[e", function()
+  vim.diagnostic.goto_prev({severity = vim.diagnostic.severity.ERROR})
+end, { desc = "Previous error" })
+
 -- Sort commands
 vim.keymap.set("v", "<leader>so", ":sort<CR>", { desc = "Sort selected lines" })
 vim.keymap.set("v", "<leader>sor", ":sort!<CR>", { desc = "Sort selected lines (reverse)" })
