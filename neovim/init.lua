@@ -623,6 +623,12 @@ vim.keymap.set("n", "<leader>lk", function()
   vim.notify("Stopped pylsp", vim.log.levels.INFO)
 end, { desc = "Stop pylsp LSP server" })
 
+-- Restart LSP servers
+vim.keymap.set("n", "<leader>lr", function()
+  vim.cmd("LspRestart")
+  vim.notify("LSP servers restarted", vim.log.levels.INFO)
+end, { desc = "Restart LSP servers" })
+
 -- Sort commands
 vim.keymap.set("v", "<leader>so", ":sort<CR>", { desc = "Sort selected lines" })
 vim.keymap.set("v", "<leader>sor", ":sort!<CR>", { desc = "Sort selected lines (reverse)" })
