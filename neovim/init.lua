@@ -3,7 +3,7 @@
 
 -- Basic settings
 vim.opt.number = true
-vim.opt.relativenumber = true
+vim.opt.relativenumber = false
 vim.opt.cursorline = true  -- Add this line to highlight the current line
 vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
