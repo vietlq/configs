@@ -126,7 +126,8 @@ local plugins = {
       require("nvim-treesitter.configs").setup({
         ensure_installed = {
           "rust", "python", "lua", "vim", "vimdoc", "query",
-          "json", "toml", "yaml", "csv", "bash", "markdown"
+          "json", "toml", "yaml", "csv", "bash", "markdown",
+          "c", "cpp",
         },
         sync_install = false,
         auto_install = true,
@@ -189,6 +190,7 @@ local plugins = {
           'jsonls',
           'taplo', -- TOML
           'yamlls',
+          'clangd', -- C / C++
         },
         handlers = {
           lsp_zero.default_setup,
@@ -241,6 +243,20 @@ local plugins = {
                   validate = { enable = true },
                 }
               }
+            })
+          end,
+
+          -- C / C++ with clangd
+          clangd = function()
+            require('lspconfig').clangd.setup({
+              cmd = {
+                "clangd",
+                "--background-index",
+                "--clang-tidy",
+                "--header-insertion=iwyu",
+                "--completion-style=detailed",
+                "--function-arg-placeholders",
+              },
             })
           end,
         }
@@ -676,5 +692,21 @@ vim.api.nvim_create_autocmd("FileType", {
   callback = function()
     vim.opt_local.nowrap = false
     vim.cmd("CSVTabularize")
+  end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = {"c", "cpp"},
+  callback = function()
+    vim.opt_local.tabstop = 4
+    vim.opt_local.shiftwidth = 4
+  end,
+})
+
+-- Auto-format C/C++ on save via clangd (reads .clang-format if present)
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = {"*.c", "*.cc", "*.cpp", "*.cxx", "*.h", "*.hh", "*.hpp", "*.hxx"},
+  callback = function()
+    vim.lsp.buf.format({ async = false })
   end,
 })
